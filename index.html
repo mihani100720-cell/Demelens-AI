@@ -1,0 +1,2104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CognitiveLens AI — Longitudinal Dementia-Language Analytics & Caregiver Intelligence</title>
+  <meta name="description" content="Research-grade AI platform analyzing speech and language biomarkers to establish personal baselines, monitor longitudinal cognitive trajectory, and provide evidence-grounded caregiver intelligence.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+  <!-- ==========================================================================
+       APP SHELL: SIDEBAR + TOPBAR + WORKSPACE LAYOUT
+       ========================================================================== -->
+  <div class="app-layout" id="app-layout">
+
+    <!-- COLLAPSIBLE LEFT SIDEBAR (Desktop: 250px | Collapsed: 68px) -->
+    <aside class="app-sidebar" id="app-sidebar">
+      
+      <!-- Sidebar Brand Header -->
+      <div class="sidebar-header">
+        <a class="sidebar-brand" href="#" data-target-view="landing" title="CognitiveLens AI">
+          <div class="sidebar-brand-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9.5 2A4.5 4.5 0 0 0 5 6.5C5 7.8 5.6 9 6.5 9.8A5 5 0 0 0 3 14.5c0 2.2 1.4 4.1 3.4 4.7A4.5 4.5 0 0 0 10.5 22h.5"></path>
+              <path d="M14.5 2A4.5 4.5 0 0 1 19 6.5c0 1.3-.6 2.5-1.5 3.3A5 5 0 0 1 21 14.5c0 2.2-1.4 4.1-3.4 4.7A4.5 4.5 0 0 1 13.5 22h-.5"></path>
+              <circle cx="12" cy="12" r="3"></circle>
+            </svg>
+          </div>
+          <div class="sidebar-brand-text">
+            <span class="sidebar-brand-title">CognitiveLens <span class="sidebar-brand-badge">AI</span></span>
+            <span class="sidebar-brand-sub">Research Suite v2.4</span>
+          </div>
+        </a>
+        <button class="sidebar-collapse-btn" id="sidebar-collapse-btn" title="Toggle Sidebar">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Active Patient Quick Card in Sidebar -->
+      <div class="sidebar-patient-widget" id="sidebar-patient-card">
+        <div class="sidebar-patient-top">
+          <div><span class="patient-live-dot"></span>ACTIVE SUBJECT</div>
+          <button class="sidebar-patient-switch-btn" id="sidebar-patient-switch-btn" title="Switch Cohort Subject">Switch</button>
+        </div>
+        <div class="sidebar-patient-name" id="sidebar-patient-name-display">#1042 — Margaret H.</div>
+        <div class="sidebar-patient-cohort" id="sidebar-patient-meta-display">ADRD Longitudinal Cohort</div>
+      </div>
+
+      <!-- Navigation Menu Groups -->
+      <div class="sidebar-nav-container">
+        
+        <!-- Group 1: Overview -->
+        <div class="sidebar-group">
+          <div class="sidebar-group-title">Overview</div>
+          <ul class="sidebar-menu">
+            <li class="sidebar-item">
+              <a class="sidebar-link active" href="#" data-target-view="landing">
+                <span class="sidebar-link-icon">
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                </span>
+                <span class="sidebar-link-text">Home Overview</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="#" data-target-view="dashboard">
+                <span class="sidebar-link-icon">
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="9" x="3" y="3" rx="1"></rect><rect width="7" height="5" x="14" y="3" rx="1"></rect><rect width="7" height="9" x="14" y="12" rx="1"></rect><rect width="7" height="5" x="3" y="16" rx="1"></rect></svg>
+                </span>
+                <span class="sidebar-link-text">Clinical Dashboard</span>
+                <span class="sidebar-badge badge-teal">Live</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="#" data-target-view="cases">
+                <span class="sidebar-link-icon">
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z"></path></svg>
+                </span>
+                <span class="sidebar-link-text">Case Repository</span>
+                <span class="sidebar-badge" id="sidebar-repo-count">5</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Group 2: Analysis Workflows -->
+        <div class="sidebar-group">
+          <div class="sidebar-group-title">Analysis</div>
+          <ul class="sidebar-menu">
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="#" data-target-view="voice-screening">
+                <span class="sidebar-link-icon">
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" x2="12" y1="19" y2="22"></line></svg>
+                </span>
+                <span class="sidebar-link-text">Voice Screening</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="#" data-target-view="nlp-lab">
+                <span class="sidebar-link-icon">
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="21" x2="3" y1="6" y2="6"></line><line x1="15" x2="3" y1="12" y2="12"></line><line x1="17" x2="3" y1="18" y2="18"></line></svg>
+                </span>
+                <span class="sidebar-link-text">NLP & SHAP Lab</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="#" data-target-view="longitudinal-3d">
+                <span class="sidebar-link-icon">
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.29 7 12 12 20.71 7"></polyline><line x1="12" x2="12" y1="22" y2="12"></line></svg>
+                </span>
+                <span class="sidebar-link-text">3D Cognitive Space</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Group 3: Research & Intelligence -->
+        <div class="sidebar-group">
+          <div class="sidebar-group-title">Research</div>
+          <ul class="sidebar-menu">
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="#" data-target-view="evidence-rag">
+                <span class="sidebar-link-icon">
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><polyline points="9 12 11 14 15 10"></polyline></svg>
+                </span>
+                <span class="sidebar-link-text">Evidence & RAG</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="#" data-target-view="case-replay">
+                <span class="sidebar-link-icon">
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polygon points="10 8 16 12 10 16 10 8"></polygon></svg>
+                </span>
+                <span class="sidebar-link-text">Case Replay Demo</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="#" data-target-view="synthetic-lab">
+                <span class="sidebar-link-icon">
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
+                </span>
+                <span class="sidebar-link-text">Synthetic Cohort Lab</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="#" data-target-view="research-lab">
+                <span class="sidebar-link-icon">
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"></path><path d="m19 9-5 5-4-4-3 3"></path></svg>
+                </span>
+                <span class="sidebar-link-text">Model Benchmarks</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Group 4: Governance & System -->
+        <div class="sidebar-group">
+          <div class="sidebar-group-title">System</div>
+          <ul class="sidebar-menu">
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="#" data-target-view="about-ethics">
+                <span class="sidebar-link-icon">
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" x2="12" y1="16" y2="12"></line><line x1="12" x2="12.01" y1="8" y2="8"></line></svg>
+                </span>
+                <span class="sidebar-link-text">Scientific & Ethical Scope</span>
+              </a>
+            </li>
+            <li class="sidebar-item">
+              <a class="sidebar-link" href="#" id="btn-sidebar-settings">
+                <span class="sidebar-link-icon">
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                </span>
+                <span class="sidebar-link-text">Calibration Settings</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Sidebar Footer / Clinician Profile -->
+      <div class="sidebar-footer">
+        <div class="sidebar-profile" id="sidebar-profile-card" title="Clinician Profile: Dr. Anya Sharma">
+          <img class="sidebar-avatar" src="assets/images/avatar.jpg" alt="Dr. Anya Sharma">
+          <div class="sidebar-profile-info">
+            <span class="sidebar-profile-name">Dr. Anya Sharma</span>
+            <span class="sidebar-profile-role">Principal Investigator</span>
+          </div>
+        </div>
+        <div class="sidebar-quick-actions">
+          <button class="sidebar-action-btn" id="btn-sidebar-report" title="Generate Clinical Assessment PDF">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" x2="8" y1="13" y2="13"></line><line x1="16" x2="8" y1="17" y2="17"></line></svg>
+          </button>
+          <button class="sidebar-action-btn" id="btn-sidebar-help" title="Scientific Documentation">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" x2="12.01" y1="17" y2="17"></line></svg>
+          </button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- MAIN APP VIEWPORT (Adjacent to Sidebar) -->
+    <div class="app-main-layout">
+      
+      <!-- COMPACT TOPBAR (56px) -->
+      <header class="app-topbar">
+        <div class="topbar-left">
+          <button class="topbar-toggle-btn" id="topbar-sidebar-toggle" title="Toggle Sidebar">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="3" x2="21" y1="12" y2="12"></line>
+              <line x1="3" x2="21" y1="6" y2="6"></line>
+              <line x1="3" x2="21" y1="18" y2="18"></line>
+            </svg>
+          </button>
+
+          <div class="topbar-breadcrumbs">
+            <span class="breadcrumb-root">CognitiveLens AI</span>
+            <span class="breadcrumb-sep">/</span>
+            <span class="breadcrumb-current" id="topbar-current-view-name">Home Overview</span>
+          </div>
+        </div>
+
+        <!-- Universal Spotlight Search Trigger -->
+        <div class="topbar-search-trigger" id="topbar-search-trigger" title="Open Command Palette (Ctrl+K)">
+          <div class="search-trigger-content">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" x2="16.65" y1="21" y2="16.65"></line></svg>
+            <span>Search subjects, biomarkers, tools...</span>
+          </div>
+          <span class="search-key-badge">Ctrl K</span>
+        </div>
+
+        <!-- Topbar Right Actions -->
+        <div class="topbar-right">
+          
+          <!-- Case Selector -->
+          <div class="topbar-case-select-wrap">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--brand-teal)" stroke-width="2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+            <select class="topbar-case-select" id="topbar-patient-select">
+              <option value="1042">Case #1042 — Margaret H. (ADRD)</option>
+              <option value="2019">Case #2019 — Robert C. (Control)</option>
+              <option value="3084">Case #3084 — Eleanor D. (Vascular)</option>
+              <option value="1088">Case #1088 — Arthur P. (FTD)</option>
+              <option value="4012">Case #4012 — Grace M. (SCD)</option>
+            </select>
+          </div>
+
+          <!-- New Screening CTA Button -->
+          <button class="btn btn-primary btn-sm" id="topbar-btn-new-session" title="Begin New Assessment Session">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" x2="19" y1="12" y2="12"></line></svg>
+            <span>New Session</span>
+          </button>
+
+          <!-- Report Button -->
+          <button class="btn btn-secondary btn-sm" id="topbar-btn-report" title="Generate Clinical Assessment PDF">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" x2="8" y1="13" y2="13"></line><line x1="16" x2="8" y1="17" y2="17"></line></svg>
+            <span>Report</span>
+          </button>
+
+          <!-- Theme Toggle (Light / Dark) -->
+          <button class="topbar-theme-btn" id="topbar-btn-theme" title="Toggle Light / Dark Mode">
+            <!-- Moon icon: visible in light mode -->
+            <svg class="icon-moon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+            <!-- Sun icon: visible in dark mode -->
+            <svg class="icon-sun" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+          </button>
+
+          <!-- Notification Bell -->
+          <button class="topbar-icon-btn" id="topbar-btn-notif" title="Clinical Notifications">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path></svg>
+            <span class="notif-badge-dot"></span>
+          </button>
+
+          <!-- Investigator Account / Register Button with Verified Badge -->
+          <button class="topbar-auth-btn" id="topbar-btn-auth" title="Investigator Authentication and IRB Credentials">
+            <span class="verified-dot-icon" title="IRB Protocol Clearance Verified">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            </span>
+            <span id="topbar-auth-label">Verified Investigator</span>
+          </button>
+
+          <!-- Clinician Profile Avatar -->
+          <button class="topbar-icon-btn" id="topbar-btn-profile" title="Clinician Profile: Dr. Anya Sharma" style="padding: 2px;">
+            <img src="assets/images/avatar.jpg" alt="Profile" style="width: 100%; height: 100%; border-radius: var(--radius-sm); object-fit: cover;">
+          </button>
+
+        </div>
+      </header>
+
+      <main class="workspace-views-wrapper">
+
+        <!-- ==========================================================================
+             VIEW 1: HOME OVERVIEW — CINEMATIC HERO LANDING
+             ========================================================================== -->
+        <section class="module-view active-view" id="view-landing">
+
+          <!-- ── FULL-BLEED CINEMATIC HERO ── -->
+          <div class="landing-hero">
+
+            <!-- Background image layer -->
+            <div class="hero-bg-layer">
+              <img src="assets/images/hero-brain.jpg" alt="Neural Brain Network" class="hero-bg-img">
+              <div class="hero-bg-overlay"></div>
+            </div>
+
+            <!-- Floating content -->
+            <div class="hero-content">
+
+              <!-- Top eyebrow badge -->
+              <div class="hero-eyebrow" data-aos="fade-down">
+                <span class="hero-eyebrow-dot"></span>
+                <span>CognitiveLens AI · Research Suite v2.4</span>
+              </div>
+
+              <!-- Motivational quote -->
+              <blockquote class="hero-quote">
+                <p>"Every voice carries a map of the mind.<br>We listen, to understand the territory."</p>
+              </blockquote>
+
+              <!-- Headline -->
+              <h1 class="hero-headline">
+                Decoding Cognitive Decline<br>
+                <span class="hero-headline-accent">One Voice at a Time.</span>
+              </h1>
+
+              <!-- Sub description -->
+              <p class="hero-description">
+                Longitudinal speech-biomarker analytics that establish your personal baseline — detecting persistent cognitive shifts before they become crises, grounded in peer-reviewed evidence.
+              </p>
+
+              <!-- CTA Buttons -->
+              <div class="hero-ctas">
+                <button class="hero-btn-primary" onclick="window.switchView('dashboard');">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect width="7" height="9" x="3" y="3" rx="1"></rect><rect width="7" height="5" x="14" y="3" rx="1"></rect><rect width="7" height="9" x="14" y="12" rx="1"></rect><rect width="7" height="5" x="3" y="16" rx="1"></rect></svg>
+                  Open Clinical Dashboard
+                </button>
+                <button class="hero-btn-ghost" onclick="window.switchView('voice-screening');">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path></svg>
+                  Start Voice Screening
+                </button>
+              </div>
+
+              <!-- Live status strip -->
+              <div class="hero-status-strip">
+                <div class="hero-status-chip">
+                  <span class="status-pulse-dot"></span>
+                  <span>5 Active Subjects</span>
+                </div>
+                <div class="hero-status-chip">
+                  <span>F1-Score: 0.912</span>
+                </div>
+                <div class="hero-status-chip">
+                  <span>RAG Grounding: 98.4%</span>
+                </div>
+                <div class="hero-status-chip">
+                  <span>ISO 22955 Compliant</span>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Scroll cue -->
+            <div class="hero-scroll-cue" onclick="document.querySelector('.landing-pillars').scrollIntoView({behavior:'smooth'})">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </div>
+
+          </div>
+
+          <!-- ── 3 RESEARCH PILLARS ── -->
+          <div class="landing-pillars">
+
+            <div class="landing-section-label">Core Research Capabilities</div>
+
+            <div class="dashboard-grid-3col">
+
+              <div class="pillar-card" onclick="window.switchView('voice-screening');">
+                <div class="pillar-icon pillar-icon-teal">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" x2="12" y1="19" y2="22"></line></svg>
+                </div>
+                <div class="pillar-number">01</div>
+                <h4 class="pillar-title">Voice Screening Studio</h4>
+                <p class="pillar-desc">
+                  Acoustic feature extraction across validated cognitive paradigms. Boston Cookie Theft, Category Fluency, and Delayed Story Recall — all graded against your personal linguistic baseline.
+                </p>
+                <div class="pillar-cta">
+                  Launch Studio
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </div>
+              </div>
+
+              <div class="pillar-card" onclick="window.switchView('longitudinal-3d');">
+                <div class="pillar-icon pillar-icon-amber">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.29 7 12 12 20.71 7"></polyline><line x1="12" x2="12" y1="22" y2="12"></line></svg>
+                </div>
+                <div class="pillar-number">02</div>
+                <h4 class="pillar-title">3D Cognitive State Space</h4>
+                <p class="pillar-desc">
+                  Intra-individual baseline manifold. Compare every observation against your own linguistic history — not population norms — preserving sensitivity for high-cognitive-reserve individuals.
+                </p>
+                <div class="pillar-cta" style="color: var(--status-warning);">
+                  Explore 3D Space
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </div>
+              </div>
+
+              <div class="pillar-card" onclick="window.switchView('evidence-rag');">
+                <div class="pillar-icon pillar-icon-blue">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><polyline points="9 12 11 14 15 10"></polyline></svg>
+                </div>
+                <div class="pillar-number">03</div>
+                <h4 class="pillar-title">Evidence Battle RAG</h4>
+                <p class="pillar-desc">
+                  Dual-pole retrieval engine weighing mechanistic neuropathological evidence against contextual and environmental qualifiers — every caregiver recommendation cited.
+                </p>
+                <div class="pillar-cta" style="color: var(--status-info);">
+                  Search Literature
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- ── CLINICAL PRINCIPLES STRIP ── -->
+          <div class="principles-strip">
+            <div class="principles-label">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" x2="12" y1="8" y2="12"></line><line x1="12" x2="12.01" y1="16" y2="16"></line></svg>
+              Core Clinical Principles &amp; Ethical Boundaries
+            </div>
+            <div class="principles-list">
+              <div class="principle-item"><span class="principle-key">P1</span><span>Change ≠ Diagnosis</span></div>
+              <div class="principle-divider"></div>
+              <div class="principle-item"><span class="principle-key">P2</span><span>One Observation ≠ A Trend</span></div>
+              <div class="principle-divider"></div>
+              <div class="principle-item"><span class="principle-key">P3</span><span>Missing Data ≠ Stability</span></div>
+              <div class="principle-divider"></div>
+              <div class="principle-item"><span class="principle-key">P4</span><span>Prediction ≠ Explanation</span></div>
+              <div class="principle-divider"></div>
+              <div class="principle-item"><span class="principle-key">P5</span><span>Answer ≠ Evidence</span></div>
+            </div>
+          </div>
+
+        </section>
+
+        <!-- ==========================================================================
+             VIEW 2: CLINICAL DASHBOARD (REDESIGNED TO SPECIFICATION)
+             ========================================================================== -->
+        <section class="module-view" id="view-dashboard">
+          
+          <!-- 1. Compact Case Overview Card -->
+          <div class="case-overview-card">
+            <div class="case-overview-main">
+              <div class="case-avatar-icon" id="dash-case-id">#1042</div>
+              <div>
+                <div class="case-title-row">
+                  <h3 id="dash-patient-name">Margaret H.</h3>
+                  <span class="stat-tag tag-alert" id="dash-status-tag">Elevated Risk Signal</span>
+                </div>
+                <div class="case-subtitle" id="dash-patient-demographics">
+                  Female, 74 y/o • ADRD Longitudinal Cohort • 7 Bi-weekly Observations
+                </div>
+              </div>
+            </div>
+
+            <div class="case-overview-meta-chips">
+              <div class="overview-meta-item">
+                <span class="overview-meta-label">Last Assessment</span>
+                <span class="overview-meta-val" id="dash-last-assessment">Week 7 (Dec 27, 2025)</span>
+              </div>
+              <div class="overview-meta-item">
+                <span class="overview-meta-label">Total Observations</span>
+                <span class="overview-meta-val" id="dash-total-obs">7 Sessions</span>
+              </div>
+            </div>
+
+            <div class="case-overview-actions">
+              <button class="btn btn-secondary btn-sm" onclick="window.switchView('case-replay');">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                <span>Replay Trajectory</span>
+              </button>
+              <button class="btn btn-secondary btn-sm" id="dash-btn-report">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+                <span>Assessment Report</span>
+              </button>
+              <button class="btn btn-primary btn-sm" id="dash-btn-new-session">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                <span>New Session</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- First Signal Alert Banner (Conditional) -->
+          <div class="first-signal-banner" id="first-signal-alert-banner">
+            <div class="first-signal-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+              </svg>
+            </div>
+            <div class="first-signal-body">
+              <h4>First Persistent Signal Detected — Observation #5 (Week 5)</h4>
+              <p>
+                Linguistic divergence exceeded individual baseline threshold across multiple orthogonal markers (TTR drop: -2.1σ, Repetition surge: +2.8σ, Syntactic compression: -1.9σ) and persisted across subsequent sessions.
+              </p>
+            </div>
+          </div>
+
+          <!-- 2. Small Set of Compact KPI Cards -->
+          <div class="kpi-grid">
+            
+            <!-- KPI 1: Cognitive Signal -->
+            <div class="kpi-card">
+              <div class="kpi-header">
+                <span class="kpi-label">Cognitive Signal</span>
+                <span class="stat-tag tag-alert" id="kpi-signal-tag">Elevated (0.78)</span>
+              </div>
+              <div class="kpi-value-row">
+                <span class="kpi-value val-elevated" id="kpi-cognitive-signal">0.78</span>
+                <span class="kpi-sub">Composite Index</span>
+              </div>
+              <div class="kpi-footer">
+                Aggregated across lexical diversity, repetition, and clause complexity.
+              </div>
+            </div>
+
+            <!-- KPI 2: Trajectory Status -->
+            <div class="kpi-card">
+              <div class="kpi-header">
+                <span class="kpi-label">Trajectory</span>
+                <span class="stat-tag tag-alert">Shift Confirmed</span>
+              </div>
+              <div class="kpi-value-row">
+                <span class="kpi-value" style="font-size: 1.15rem; font-weight: 700; color: #b91c1c;" id="kpi-trajectory-status">Persistent Deviation</span>
+              </div>
+              <div class="kpi-footer" id="kpi-trajectory-sub">
+                2 consecutive out-of-distribution sessions (Weeks 5 & 6).
+              </div>
+            </div>
+
+            <!-- KPI 3: Confidence Interval -->
+            <div class="kpi-card">
+              <div class="kpi-header">
+                <span class="kpi-label">Confidence Interval</span>
+                <span class="stat-tag tag-healthy" id="kpi-confidence-level">High Fidelity</span>
+              </div>
+              <div class="kpi-value-row">
+                <span class="kpi-value" style="font-family: var(--font-mono); font-size: 1.25rem;" id="kpi-confidence-interval">[0.72 – 0.84]</span>
+              </div>
+              <div class="kpi-footer">
+                Bootstrap 95% CI computed over 1,000 sub-sampled iterations.
+              </div>
+            </div>
+
+            <!-- KPI 4: Signal Quality (SNR) -->
+            <div class="kpi-card">
+              <div class="kpi-header">
+                <span class="kpi-label">Signal Quality</span>
+                <span class="stat-tag tag-healthy" id="kpi-snr-db">SNR 28.4 dB</span>
+              </div>
+              <div class="kpi-value-row">
+                <span class="kpi-value val-nominal" id="kpi-signal-quality">0.96</span>
+                <span class="kpi-sub">/ 1.00 Clean</span>
+              </div>
+              <div class="kpi-footer">
+                Zero packet loss; background noise floor well within clinical tolerance.
+              </div>
+            </div>
+
+          </div>
+
+          <!-- 3. Longitudinal Trajectory Interactive Chart -->
+          <div class="trajectory-section">
+            <div class="trajectory-header">
+              <div class="trajectory-title-wrap">
+                <h4>Longitudinal Cognitive Trajectory</h4>
+                <p>Weekly linguistic composite score plotted against personal calibrated baseline</p>
+              </div>
+              <div class="trajectory-legend">
+                <div class="legend-item">
+                  <span class="legend-line" style="background: #0d9488;"></span>
+                  <span>Observed Trajectory</span>
+                </div>
+                <div class="legend-item">
+                  <span class="legend-dot" style="background: rgba(16, 185, 129, 0.4);"></span>
+                  <span>Baseline Range</span>
+                </div>
+                <div class="legend-item">
+                  <span class="legend-line" style="border-top: 2px dashed #f59e0b;"></span>
+                  <span>Cutoff Threshold (0.50)</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="chart-canvas-container">
+              <canvas id="canvas-trajectory"></canvas>
+              <div class="chart-tooltip" id="trajectory-tooltip"></div>
+            </div>
+          </div>
+
+          <!-- 4. Analytical Grid: Model Consensus & Uncertainty Panel -->
+          <div class="dashboard-grid-2col">
+            
+            <!-- Left: Model Consensus -->
+            <div class="panel-card model-consensus-card">
+              <div class="card-header">
+                <h4>Model Consensus</h4>
+                <span class="stat-tag tag-healthy" id="model-agreement-tag">3 / 3 Models Aligned (100%)</span>
+              </div>
+              <p class="card-subtitle">Independent classification architectures evaluating current observation.</p>
+
+              <div class="model-consensus-list" id="model-consensus-rows">
+                <!-- Rendered via JS -->
+              </div>
+
+              <div class="card-footer-note">
+                Concordance verified: Gradient-boosted trees and regularized logistic models independently confirm elevated signal.
+              </div>
+            </div>
+
+            <!-- Right: Signal Integrity & Uncertainty -->
+            <div class="panel-card">
+              <div class="card-header">
+                <h4>Signal Integrity & Uncertainty</h4>
+                <span class="stat-tag tag-healthy">Verified</span>
+              </div>
+              <p class="card-subtitle">Acoustic telemetry and data completeness verification.</p>
+
+              <div class="uncertainty-grid">
+                <div class="uncertainty-cell">
+                  <div class="uncertainty-cell-label">Confidence Interval</div>
+                  <div class="uncertainty-cell-val" id="uncert-ci">[0.72 – 0.84]</div>
+                </div>
+                <div class="uncertainty-cell">
+                  <div class="uncertainty-cell-label">Signal-to-Noise Ratio</div>
+                  <div class="uncertainty-cell-val" style="color: var(--brand-teal);" id="uncert-snr">28.4 dB</div>
+                </div>
+                <div class="uncertainty-cell">
+                  <div class="uncertainty-cell-label">Acoustic Quality</div>
+                  <div class="uncertainty-cell-val" style="color: var(--brand-teal);" id="uncert-acoustic">0.96 / 1.00</div>
+                </div>
+                <div class="uncertainty-cell">
+                  <div class="uncertainty-cell-label">Missing Observations</div>
+                  <div class="uncertainty-cell-val" id="uncert-missing">0.0%</div>
+                </div>
+              </div>
+
+              <div class="card-footer-note">
+                Acoustic recording satisfies ISO 22955 clinical intake standards for speech biomarker analysis.
+              </div>
+            </div>
+
+          </div>
+
+          <!-- 5. Feature Analysis (SHAP) & Grounded Guidance Grid -->
+          <div class="dashboard-grid-2col">
+            
+            <!-- SHAP Marker Contributions -->
+            <div class="panel-card">
+              <div class="card-header">
+                <h4>Linguistic Feature Attributions (SHAP)</h4>
+                <span class="stat-tag tag-info">Observation #7</span>
+              </div>
+              <p class="card-subtitle">Relative weight of features driving deviation from personal baseline.</p>
+
+              <div class="shap-bars-container" id="shap-features-list">
+                <!-- Rendered dynamically via JS -->
+              </div>
+            </div>
+
+            <!-- Grounded Caregiver & Decision Guidance -->
+            <div class="panel-card">
+              <div class="card-header">
+                <h4>Grounded Caregiver Guidance</h4>
+                <button class="btn btn-secondary btn-sm" onclick="window.switchView('evidence-rag');">
+                  View Literature →
+                </button>
+              </div>
+              <p class="card-subtitle">Evidence synthesis generated via the Evidence Battle framework.</p>
+
+              <div style="padding: 12px; background: var(--bg-subtle); border-radius: var(--radius-sm); font-size: 0.82rem; line-height: 1.55; color: var(--text-secondary);">
+                Observed repetition and circumlocution reflect episodic memory recall friction. Literature suggests using brief warm reassurance rather than corrective prompts, and minimizing background sensory chatter.
+              </div>
+
+              <div style="margin-top: 12px; display: flex; flex-direction: column; gap: 6px; font-size: 0.8rem;">
+                <div style="display: flex; gap: 8px; align-items: baseline;">
+                  <span style="color: var(--brand-teal); font-weight: 700; flex-shrink: 0;">✓</span>
+                  <span>Present single conversational questions with generous retrieval latency (&gt;4s).</span>
+                </div>
+                <div style="display: flex; gap: 8px; align-items: baseline;">
+                  <span style="color: var(--brand-teal); font-weight: 700; flex-shrink: 0;">✓</span>
+                  <span>Use visual calendar agendas to reduce repeated orientation queries.</span>
+                </div>
+              </div>
+
+              <div class="card-footer-note">
+                Citations: <em>The Lancet Neurology (2023)</em>, <em>Brain and Language (2022)</em>. Non-prescriptive research decision support.
+              </div>
+            </div>
+
+          </div>
+
+          <!-- 6. Observations Timeline Table -->
+          <div class="observations-table-card">
+            <div class="card-header">
+              <div>
+                <h4 style="font-size: 1rem;">Longitudinal Observations Timeline</h4>
+                <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 3px;">
+                  Complete chronological record of assessment sessions under protocol
+                </p>
+              </div>
+              <button class="btn btn-secondary btn-sm" onclick="window.switchView('case-replay');">
+                Open in Replay Studio →
+              </button>
+            </div>
+
+            <div class="data-table-container">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Observation</th>
+                    <th>Date</th>
+                    <th>Signal Score</th>
+                    <th>Baseline Shift (σ)</th>
+                    <th>TTR</th>
+                    <th>Repetition Rate</th>
+                    <th>Clinical Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="observations-table-body">
+                  <!-- Populated via JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </section>
+
+        <!-- ==========================================================================
+             VIEW 3: CASE REPOSITORY (FULL WORKING TABLE)
+             ========================================================================== -->
+        <section class="module-view" id="view-cases">
+          <div class="module-header">
+            <div class="module-title-group">
+              <h2>Longitudinal Case Repository</h2>
+              <p>Search, filter, and inspect research cohort subjects monitored under protocol.</p>
+            </div>
+            <div class="module-controls" style="display: flex; gap: 8px;">
+              <button class="btn btn-secondary btn-sm" id="btn-enroll-subject-open">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><line x1="19" y1="8" x2="19" y2="14"></line><line x1="22" y1="11" x2="16" y2="11"></line></svg>
+                <span>+ Enroll New Subject</span>
+              </button>
+              <button class="btn btn-primary btn-sm" onclick="document.getElementById('modal-new-session').classList.add('active');">
+                + Register Subject Session
+              </button>
+            </div>
+          </div>
+
+          <!-- Filter & Search Toolbar -->
+          <div class="repo-controls-row">
+            <input type="text" class="repo-search-input" id="repo-search-input" placeholder="Search by case ID, subject name, or cohort...">
+            
+            <div style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center;">
+              <select class="repo-filter-select" id="repo-cohort-filter">
+                <option value="all">All Cohorts</option>
+                <option value="adrd">ADRD Longitudinal Cohort</option>
+                <option value="control">Healthy Age-Matched Control</option>
+                <option value="vascular">Vascular Cognitive Pattern</option>
+                <option value="speech">Frontotemporal Subtype</option>
+              </select>
+
+              <select class="repo-filter-select" id="repo-status-filter">
+                <option value="all">All Statuses</option>
+                <option value="elevated">Elevated Signal</option>
+                <option value="nominal">Nominal Baseline</option>
+                <option value="moderate">Moderate Variance</option>
+              </select>
+
+              <select class="repo-filter-select" id="repo-sort-select">
+                <option value="last">Sort by: Total Sessions</option>
+                <option value="score-desc">Sort by: Signal Score (High to Low)</option>
+                <option value="score-asc">Sort by: Signal Score (Low to High)</option>
+                <option value="id">Sort by: Case ID</option>
+              </select>
+
+              <span class="sidebar-badge" id="repo-count-badge">5 Subjects</span>
+            </div>
+          </div>
+
+          <!-- Working Case Repository Table -->
+          <div class="panel-card" style="padding: 0; overflow: hidden;">
+            <div class="data-table-container" style="margin-top: 0;">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Case ID</th>
+                    <th>Patient / Subject</th>
+                    <th>Study Cohort</th>
+                    <th>Last Assessment</th>
+                    <th>Status</th>
+                    <th>Confidence</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="repo-table-body">
+                  <!-- Populated dynamically via JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==========================================================================
+             VIEW 4: VOICE SCREENING STUDIO
+             ========================================================================== -->
+        <section class="module-view" id="view-voice-screening">
+          <div class="module-header">
+            <div class="module-title-group">
+              <h2>Voice Screening Studio</h2>
+              <p>Standardized acoustic intake, speech transcription, and immediate linguistic profile extraction.</p>
+            </div>
+            <div class="module-controls">
+              <span class="stat-tag tag-healthy" id="voice-screening-protocol-tag">Protocol BDAE-02</span>
+            </div>
+          </div>
+
+          <div class="screening-grid">
+            
+            <!-- Left: Stimulus & Audio Intake -->
+            <div class="panel-card">
+              <h4 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 14px;">Standardized Task Protocol</h4>
+
+              <div class="task-chips-wrap">
+                <button class="task-chip-btn active" data-task-id="cookie-theft">Boston Cookie Theft (BDAE-02)</button>
+                <button class="task-chip-btn" data-task-id="animal-fluency">Category Fluency (Animals, 60s)</button>
+                <button class="task-chip-btn" data-task-id="story-recall">Delayed Story Recall (WMS-IV)</button>
+              </div>
+
+              <!-- Stimulus Visual Frame -->
+              <div class="stimulus-frame">
+                <img class="stimulus-img" id="screening-stimulus-img" src="assets/images/cookie-theft.jpg" alt="Stimulus">
+                <div class="stimulus-caption" id="screening-stimulus-caption">
+                  <strong>Stimulus Task:</strong> Boston Cookie Theft Picture Description. Subject describes everything happening in the scene for 60 seconds without interruption.
+                </div>
+              </div>
+
+              <!-- Audio Recorder Bar -->
+              <div class="audio-recorder-strip">
+                <button class="record-btn-trigger" id="btn-record-audio" title="Start/Stop Simulated Recording">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" x2="12" y1="19" y2="22"></line></svg>
+                </button>
+                <canvas class="waveform-canvas" id="canvas-waveform"></canvas>
+                <div class="recording-timer" id="recording-timer">00:42</div>
+              </div>
+
+              <!-- Controls -->
+              <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                <button class="btn btn-secondary btn-sm" id="btn-play-sample-audio">
+                  <span id="btn-play-sample-icon">▶</span> <span id="btn-play-sample-text">Play Assessment Audio</span>
+                </button>
+                <label class="btn btn-secondary btn-sm" style="cursor: pointer;">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" x2="12" y1="3" y2="15"></line></svg>
+                  <span>Upload WAV Audio</span>
+                  <input type="file" id="input-audio-upload" accept="audio/*" style="display: none;">
+                </label>
+                <button class="btn btn-primary btn-sm" id="btn-extract-features" style="margin-left: auto;">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+                  <span>Run NLP Extraction</span>
+                </button>
+              </div>
+
+              <!-- Transcript Stream -->
+              <div class="transcript-box">
+                <div style="display: flex; justify-content: space-between; font-size: 0.72rem; color: var(--text-muted); margin-bottom: 4px;">
+                  <span>Automated Speech Recognition</span>
+                  <span>Whisper Large v3 (Confidence: 0.98)</span>
+                </div>
+                <div id="live-transcript-stream">
+                  "She is... <span class="word-highlight-pause">[pause 2.4s]</span> washing the things at the water place. The water is spilling. And the boy is... <span class="word-highlight-repetition">the boy is, the boy is</span> getting into the jar for the <span class="word-highlight-pause">[pause 1.8s]</span> the sweet things, cookies. The stool is falling."
+                </div>
+              </div>
+            </div>
+
+            <!-- Right: Extracted Linguistic Profile -->
+            <div class="panel-card">
+              <div class="card-header">
+                <h4>Extracted Linguistic Profile</h4>
+                <span class="stat-tag tag-alert">Deviating from Baseline</span>
+              </div>
+              <p class="card-subtitle">Computed relative to personal calibration baseline manifold.</p>
+
+              <!-- Meters List -->
+              <div class="meters-list">
+                
+                <div class="meter-item">
+                  <div class="meter-label-row">
+                    <span class="meter-name">Vocabulary Diversity (TTR)</span>
+                    <span class="meter-val" id="val-ttr" style="color: #b91c1c;">0.51 (TTR)</span>
+                  </div>
+                  <div class="meter-bar-track">
+                    <div class="meter-bar-fill fill-amber" id="bar-ttr" style="width: 51%;"></div>
+                  </div>
+                  <span style="font-size: 0.7rem; color: var(--text-muted);">Baseline reference: 0.72 | z-score: -2.1σ</span>
+                </div>
+
+                <div class="meter-item">
+                  <div class="meter-label-row">
+                    <span class="meter-name">Repetition / Perseveration Index</span>
+                    <span class="meter-val" id="val-rep" style="color: #b91c1c;">18.4%</span>
+                  </div>
+                  <div class="meter-bar-track">
+                    <div class="meter-bar-fill fill-red" id="bar-rep" style="width: 65%;"></div>
+                  </div>
+                  <span style="font-size: 0.7rem; color: var(--text-muted);">Baseline reference: 6.2% | z-score: +2.8σ</span>
+                </div>
+
+                <div class="meter-item">
+                  <div class="meter-label-row">
+                    <span class="meter-name">Semantic Coherence</span>
+                    <span class="meter-val" id="val-coh" style="color: var(--brand-teal);">0.58</span>
+                  </div>
+                  <div class="meter-bar-track">
+                    <div class="meter-bar-fill fill-teal" id="bar-coh" style="width: 58%;"></div>
+                  </div>
+                  <span style="font-size: 0.7rem; color: var(--text-muted);">Baseline reference: 0.81 | Cosine similarity</span>
+                </div>
+
+                <div class="meter-item">
+                  <div class="meter-label-row">
+                    <span class="meter-name">Syntactic Clause Depth</span>
+                    <span class="meter-val" id="val-syn" style="color: var(--status-info);">6.2 words/clause</span>
+                  </div>
+                  <div class="meter-bar-track">
+                    <div class="meter-bar-fill fill-blue" id="bar-syn" style="width: 52%;"></div>
+                  </div>
+                  <span style="font-size: 0.7rem; color: var(--text-muted);">Baseline reference: 9.4 | Parse tree depth reduction</span>
+                </div>
+
+                <div class="meter-item">
+                  <div class="meter-label-row">
+                    <span class="meter-name">Fluency & Hesitation Score</span>
+                    <span class="meter-val" id="val-flu" style="color: var(--brand-teal);">64/100</span>
+                  </div>
+                  <div class="meter-bar-track">
+                    <div class="meter-bar-fill fill-teal" id="bar-flu" style="width: 64%;"></div>
+                  </div>
+                  <span style="font-size: 0.7rem; color: var(--text-muted);">Mean pause latency: 2.1s (Normal: &lt;1.0s)</span>
+                </div>
+
+              </div>
+
+              <!-- Clinical Disclaimer -->
+              <div style="margin-top: 20px; padding: 12px; background: #fff8eb; border: 1px solid #fde68a; border-radius: var(--radius-sm); font-size: 0.76rem; color: #78350f;">
+                <strong>Demo Analysis:</strong> Automated feature extraction for non-diagnostic decision support. Output reflects computational pattern recognition, not an autonomous medical diagnosis.
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- ==========================================================================
+             VIEW 5: NLP & SHAP LAB
+             ========================================================================== -->
+        <section class="module-view" id="view-nlp-lab">
+          <div class="module-header">
+            <div class="module-title-group">
+              <h2>NLP Feature Decomposition & SHAP Lab</h2>
+              <p>Multi-tier linguistic feature inspection across lexical, syntactic, semantic, and discourse domains.</p>
+            </div>
+          </div>
+
+          <div class="dashboard-grid-3col">
+            <div class="panel-card">
+              <h4 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 14px;">1. Lexical Subsystem</h4>
+              <div style="display: flex; flex-direction: column; gap: 8px; font-size: 0.82rem;">
+                <div style="display: flex; justify-content: space-between;">
+                  <span style="color: var(--text-secondary);">Type-Token Ratio (TTR):</span>
+                  <strong style="color: #b91c1c;">0.51 (-29%)</strong>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                  <span style="color: var(--text-secondary);">Brunét's W Index:</span>
+                  <strong>12.4</strong>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                  <span style="color: var(--text-secondary);">Noun-to-Verb Ratio:</span>
+                  <strong>0.72 (Depleted)</strong>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                  <span style="color: var(--text-secondary);">High-Frequency Words:</span>
+                  <strong style="color: #b91c1c;">84.2% (+18%)</strong>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel-card">
+              <h4 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 14px;">2. Syntactic Subsystem</h4>
+              <div style="display: flex; flex-direction: column; gap: 8px; font-size: 0.82rem;">
+                <div style="display: flex; justify-content: space-between;">
+                  <span style="color: var(--text-secondary);">Mean Length Utterance (MLU):</span>
+                  <strong>7.1 words</strong>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                  <span style="color: var(--text-secondary);">Subordinate Clause Ratio:</span>
+                  <strong style="color: #b91c1c;">0.12 (Marked Drop)</strong>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                  <span style="color: var(--text-secondary);">Parse Tree Max Depth:</span>
+                  <strong>4 levels</strong>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                  <span style="color: var(--text-secondary);">Yngve Syntactic Load:</span>
+                  <strong>1.82</strong>
+                </div>
+              </div>
+            </div>
+
+            <div class="panel-card">
+              <h4 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 14px;">3. Discourse & Semantics</h4>
+              <div style="display: flex; flex-direction: column; gap: 8px; font-size: 0.82rem;">
+                <div style="display: flex; justify-content: space-between;">
+                  <span style="color: var(--text-secondary);">Perseverative Loops:</span>
+                  <strong style="color: #b91c1c;">4 detected</strong>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                  <span style="color: var(--text-secondary);">Information Unit Density:</span>
+                  <strong>0.38 / clause</strong>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                  <span style="color: var(--text-secondary);">Cosine Coherence:</span>
+                  <strong>0.58</strong>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                  <span style="color: var(--text-secondary);">Filler Ratio (uh/um):</span>
+                  <strong>14.2%</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- SHAP Explainer Card -->
+          <div class="panel-card" style="margin-top: 22px;">
+            <div class="card-header">
+              <h4>SHAP Feature Contribution Visualization</h4>
+            </div>
+            <p class="card-subtitle">Explainable AI attribution showing features that increase risk (+) or protect (-) relative to personal baseline.</p>
+
+            <div class="shap-bars-container">
+              <div class="shap-row">
+                <div class="shap-row-header">
+                  <span class="shap-name">Phrase Repetition Frequency (+2.8σ shift)</span>
+                  <span class="shap-impact positive">+0.34 SHAP impact</span>
+                </div>
+                <div class="shap-track"><div class="shap-fill fill-red" style="width: 85%;"></div></div>
+              </div>
+
+              <div class="shap-row">
+                <div class="shap-row-header">
+                  <span class="shap-name">Type-Token Ratio Decay (-2.1σ shift)</span>
+                  <span class="shap-impact positive">+0.28 SHAP impact</span>
+                </div>
+                <div class="shap-track"><div class="shap-fill fill-amber" style="width: 70%;"></div></div>
+              </div>
+
+              <div class="shap-row">
+                <div class="shap-row-header">
+                  <span class="shap-name">Mid-Utterance Pause Latency (&gt;1.5s pauses)</span>
+                  <span class="shap-impact positive">+0.19 SHAP impact</span>
+                </div>
+                <div class="shap-track"><div class="shap-fill fill-blue" style="width: 48%;"></div></div>
+              </div>
+
+              <div class="shap-row">
+                <div class="shap-row-header">
+                  <span class="shap-name">Subordinate Clause Simplification</span>
+                  <span class="shap-impact positive">+0.14 SHAP impact</span>
+                </div>
+                <div class="shap-track"><div class="shap-fill fill-amber" style="width: 35%;"></div></div>
+              </div>
+
+              <div class="shap-row">
+                <div class="shap-row-header">
+                  <span class="shap-name">Pitch Fundamental Stability (F0 Preserved)</span>
+                  <span class="shap-impact negative">-0.06 SHAP protective</span>
+                </div>
+                <div class="shap-track"><div class="shap-fill fill-teal" style="width: 15%;"></div></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==========================================================================
+             VIEW 6: 3D LATENT STATE SPACE & RADAR
+             ========================================================================== -->
+        <section class="module-view" id="view-longitudinal-3d">
+          <div class="module-header">
+            <div class="module-title-group">
+              <h2>3D Latent State Space & Fingerprint</h2>
+              <p>Longitudinal trajectory manifold projected across Vocabulary Diversity (X), Semantic Coherence (Y), and Repetition (Z).</p>
+            </div>
+          </div>
+
+          <!-- 7-Week Stepper -->
+          <div class="timeline-stepper">
+            <button class="timeline-step" data-step="0">
+              <div class="step-node">W1</div>
+              <span class="step-label">Week 1</span>
+              <span class="step-badge">Baseline</span>
+            </button>
+            <button class="timeline-step" data-step="1">
+              <div class="step-node">W2</div>
+              <span class="step-label">Week 2</span>
+              <span class="step-badge">Baseline</span>
+            </button>
+            <button class="timeline-step" data-step="2">
+              <div class="step-node">W3</div>
+              <span class="step-label">Week 3</span>
+              <span class="step-badge">Baseline</span>
+            </button>
+            <button class="timeline-step" data-step="3">
+              <div class="step-node">W4</div>
+              <span class="step-label">Week 4</span>
+              <span class="step-badge">Dip</span>
+            </button>
+            <button class="timeline-step active first-signal" data-step="4">
+              <div class="step-node">W5</div>
+              <span class="step-label">Week 5</span>
+              <span class="step-badge">First Signal</span>
+            </button>
+            <button class="timeline-step" data-step="5">
+              <div class="step-node">W6</div>
+              <span class="step-label">Week 6</span>
+              <span class="step-badge">Persistent</span>
+            </button>
+            <button class="timeline-step" data-step="6">
+              <div class="step-node">W7</div>
+              <span class="step-label">Week 7</span>
+              <span class="step-badge">Persistent</span>
+            </button>
+          </div>
+
+          <div class="space-3d-layout">
+            
+            <!-- 3D Canvas Card -->
+            <div class="panel-card" style="padding: 14px;">
+              <div class="state-space-canvas-wrap">
+                <canvas id="canvas-3d-space"></canvas>
+                
+                <div class="space-3d-overlay">
+                  <h5>3D Cognitive Latent Manifold</h5>
+                  <p>Drag to rotate view • Scroll to zoom</p>
+                </div>
+
+                <div class="space-3d-controls">
+                  <button class="space-btn-ctrl" id="btn-zoomin-3d">+</button>
+                  <button class="space-btn-ctrl" id="btn-zoomout-3d">-</button>
+                  <button class="space-btn-ctrl" id="btn-reset-3d">Reset</button>
+                  <button class="space-btn-ctrl" id="btn-autorotate-3d">Auto-Rotate: Off</button>
+                  <button class="space-btn-ctrl" id="btn-topdown-3d">Top-Down</button>
+                  <button class="space-btn-ctrl" id="btn-isometric-3d">Isometric</button>
+                </div>
+              </div>
+
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 12px; font-size: 0.78rem; color: var(--text-muted);">
+                <div style="display: flex; align-items: center; gap: 6px;">
+                  <span style="width: 8px; height: 8px; border-radius: 50%; background: #0d9488; display: inline-block;"></span>
+                  <span>Baseline Centroid</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 6px;">
+                  <span style="width: 8px; height: 8px; border-radius: 50%; background: #f59e0b; display: inline-block;"></span>
+                  <span>First Signal (W5)</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 6px;">
+                  <span style="width: 8px; height: 8px; border-radius: 50%; background: #ef4444; display: inline-block;"></span>
+                  <span>Persistent Shift (W6-W7)</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Radar Cognitive Fingerprint -->
+            <div class="panel-card" style="display: flex; flex-direction: column; align-items: center; text-align: center;">
+              <h4 style="font-size: 0.95rem; font-weight: 700;">6-Axis Cognitive Fingerprint</h4>
+              <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 3px; margin-bottom: 14px;">
+                <span style="color: var(--brand-teal); font-weight: 600;">--- Teal Dashed:</span> Baseline &nbsp;|&nbsp;
+                <span style="color: #ef4444; font-weight: 600;">━ Red Solid:</span> Current Obs
+              </p>
+
+              <canvas id="canvas-radar-fingerprint"></canvas>
+
+              <div style="background: var(--bg-subtle); border-radius: var(--radius-sm); padding: 10px 14px; width: 100%; margin-top: 14px; font-size: 0.78rem; text-align: left;">
+                <strong>Mahalanobis Distance:</strong> d = <strong>3.42</strong> (p &lt; 0.005 vs baseline). Statistically confirms structural longitudinal deviation.
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- ==========================================================================
+             VIEW 7: EVIDENCE BATTLE RAG
+             ========================================================================== -->
+        <section class="module-view" id="view-evidence-rag">
+          <div class="module-header">
+            <div class="module-title-group">
+              <h2>Evidence-Grounded Caregiver RAG</h2>
+              <p>Dual-pole retrieval weighing mechanistic clinical evidence alongside contextual qualifiers.</p>
+            </div>
+            <div class="module-controls">
+              <button class="btn btn-secondary btn-sm" id="btn-export-rag-brief">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+                <span>Export Evidence Brief</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="rag-query-box">
+            <div class="query-input-wrap">
+              <input type="text" class="query-input" id="rag-query-input" placeholder="Ask a clinical question (e.g. Why does repetitive questioning occur?)" value="Why does a person with dementia sometimes repeat the same question or phrase?">
+              <button class="btn btn-primary" id="btn-rag-submit">Retrieve Evidence</button>
+            </div>
+            <div class="suggested-chips-row">
+              <span class="chip-label">High-Yield Topics:</span>
+              <button class="query-chip" data-topic="repetition">Repetitive Questioning</button>
+              <button class="query-chip" data-topic="wordfinding">Word-Finding Hesitation (Anomia)</button>
+              <button class="query-chip" data-topic="depression">Depression vs Dementia Speech</button>
+            </div>
+          </div>
+
+          <!-- Dual-Column Evidence Battle Arena -->
+          <div class="evidence-battle-arena">
+            
+            <!-- Left: Supporting Evidence -->
+            <div class="battle-column col-supporting">
+              <div class="battle-col-title">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--brand-teal)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>Supporting Clinical Evidence</span>
+              </div>
+              <p style="font-size: 0.78rem; color: var(--text-muted); margin-bottom: 12px;">
+                Neurodegenerative and neuropsychological findings from peer-reviewed literature.
+              </p>
+              <div id="battle-supporting-list">
+                <!-- Populated via JS -->
+              </div>
+            </div>
+
+            <!-- VS Pill -->
+            <div class="battle-vs-badge">
+              <div class="vs-pill">VS</div>
+            </div>
+
+            <!-- Right: Qualifying Evidence -->
+            <div class="battle-column col-qualifying">
+              <div class="battle-col-title">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--status-warning)" stroke-width="2.5"><polygon points="12 2 2 22 22 22"></polygon><line x1="12" y1="16" x2="12" y2="16"></line><line x1="12" y1="9" x2="12" y2="13"></line></svg>
+                <span>Qualifying & Differential Factors</span>
+              </div>
+              <p style="font-size: 0.78rem; color: var(--text-muted); margin-bottom: 12px;">
+                Circadian fatigue, sensory impairment, and environmental triggers.
+              </p>
+              <div id="battle-qualifying-list">
+                <!-- Populated via JS -->
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Synthesis & Action Guidance -->
+          <div class="synthesis-card">
+            <h4>Synthesized Evidence & Caregiver Guidance</h4>
+            <p id="battle-synthesis-text">
+              Repetitive questioning is primarily driven by rapid episodic decay where the immediate answer fails to register in working memory. However, situational anxiety and sensory exhaustion heavily amplify frequency. Addressing environmental calm often halves repetition frequency.
+            </p>
+            <div class="caregiver-action-tips" id="battle-caregiver-tips" style="margin-top: 10px; display: flex; flex-direction: column; gap: 6px; font-size: 0.8rem; color: #134e4a;">
+              <!-- Populated via JS -->
+            </div>
+          </div>
+        </section>
+
+        <!-- ==========================================================================
+             VIEW 8: CASE REPLAY DEMO STUDIO
+             ========================================================================== -->
+        <section class="module-view" id="view-case-replay">
+          <div class="module-header">
+            <div class="module-title-group">
+              <h2>Case Replay Studio — Demo Mode</h2>
+              <p>Step through Case #1042 chronologically to observe how the detector confirms First Persistent Signal.</p>
+            </div>
+            <div class="module-controls">
+              <button class="btn btn-secondary btn-sm" id="btn-replay-prev">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                <span>Previous Week</span>
+              </button>
+              <button class="btn btn-primary btn-sm" id="btn-replay-play">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                <span>Play Replay</span>
+              </button>
+              <button class="btn btn-secondary btn-sm" id="btn-replay-next">
+                <span>Next Week</span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="kpi-grid">
+            <div class="kpi-card">
+              <span class="kpi-label">Observation Interval</span>
+              <div class="kpi-value val-nominal" id="current-week-num">Week 5</div>
+              <span style="font-size: 0.78rem; color: var(--text-muted);" id="current-session-date">November 29, 2025</span>
+            </div>
+            <div class="kpi-card">
+              <span class="kpi-label">Longitudinal Status</span>
+              <div class="kpi-value val-elevated" style="font-size: 1.15rem;" id="current-case-status">First Persistent Signal</div>
+              <span style="font-size: 0.78rem; color: var(--text-muted);" id="current-signal-level">Elevated Signal</span>
+            </div>
+            <div class="kpi-card">
+              <span class="kpi-label">Baseline Shift Magnitude</span>
+              <div class="kpi-value val-elevated" id="current-deviation-val">2.48 σ</div>
+              <span style="font-size: 0.78rem; color: var(--text-muted);" id="current-confidence-pct">Confidence: 89%</span>
+            </div>
+          </div>
+
+          <div class="dashboard-grid-2col" style="margin-top: 20px;">
+            <div class="panel-card">
+              <h4 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 8px;">Audio Recording Transcript</h4>
+              <div class="transcript-box" id="replay-transcript-content" style="min-height: 120px;">
+                <!-- Populated via JS -->
+              </div>
+            </div>
+
+            <div class="panel-card">
+              <h4 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 8px;">Clinical Algorithmic Note</h4>
+              <div id="replay-clinical-note" style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5; padding: 12px; background: var(--bg-subtle); border-radius: var(--radius-sm); min-height: 120px;">
+                <!-- Populated via JS -->
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==========================================================================
+             VIEW 9: SYNTHETIC COHORT LAB
+             ========================================================================== -->
+        <section class="module-view" id="view-synthetic-lab">
+          <div class="module-header">
+            <div class="module-title-group">
+              <h2>Synthetic Dementia Research Laboratory</h2>
+              <p>Parametric case simulator testing detector sensitivity against noise, missing sessions, and lexical decay.</p>
+            </div>
+            <div class="module-controls">
+              <button class="btn btn-secondary btn-sm" id="btn-syn-generate">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
+                <span>Regenerate Trajectory</span>
+              </button>
+              <button class="btn btn-secondary btn-sm" id="btn-syn-export-csv">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                <span>Export CSV Dataset</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="panel-card" style="margin-bottom: 20px;">
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;">
+              <div>
+                <label style="display: block; font-size: 0.76rem; font-weight: 600; color: var(--text-muted); margin-bottom: 4px;">
+                  Decay Rate: <span id="syn-slider-decay-val" style="color: var(--brand-teal);">35</span>
+                </label>
+                <input type="range" id="syn-slider-decay" min="5" max="95" value="35" style="width: 100%;">
+              </div>
+              <div>
+                <label style="display: block; font-size: 0.76rem; font-weight: 600; color: var(--text-muted); margin-bottom: 4px;">
+                  Repetition Surge: <span id="syn-slider-rep-val" style="color: var(--brand-teal);">40</span>
+                </label>
+                <input type="range" id="syn-slider-rep" min="0" max="100" value="40" style="width: 100%;">
+              </div>
+              <div>
+                <label style="display: block; font-size: 0.76rem; font-weight: 600; color: var(--text-muted); margin-bottom: 4px;">
+                  Channel Noise: <span id="syn-slider-noise-val" style="color: var(--brand-teal);">10%</span>
+                </label>
+                <input type="range" id="syn-slider-noise" min="0" max="60" value="10" style="width: 100%;">
+              </div>
+              <div>
+                <label style="display: block; font-size: 0.76rem; font-weight: 600; color: var(--text-muted); margin-bottom: 4px;">
+                  Missing Rate: <span id="syn-slider-missing-val" style="color: var(--brand-teal);">5%</span>
+                </label>
+                <input type="range" id="syn-slider-missing" min="0" max="40" value="5" style="width: 100%;">
+              </div>
+            </div>
+          </div>
+
+          <div class="panel-card">
+            <h4 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 12px;">Simulated 12-Week Longitudinal Trajectory</h4>
+            <canvas id="canvas-synthetic-chart" style="width: 100%; height: 220px; display: block;"></canvas>
+            <div id="syn-trajectory-summary" style="margin-top: 14px; font-size: 0.8rem; color: var(--text-secondary); background: var(--bg-subtle); padding: 10px 14px; border-radius: var(--radius-sm);">
+              <!-- Populated via JS -->
+            </div>
+          </div>
+        </section>
+
+        <!-- ==========================================================================
+             VIEW 10: RESEARCH BENCHMARKS & EVALUATION
+             ========================================================================== -->
+        <section class="module-view" id="view-research-lab">
+          <div class="module-header">
+            <div class="module-title-group">
+              <h2>Research Evaluation & Model Benchmarks</h2>
+              <p>Model classification metrics, confusion matrices, and decision boundary calibration.</p>
+            </div>
+          </div>
+
+          <div class="kpi-grid">
+            <div class="kpi-card">
+              <span class="kpi-label">F1-Score</span>
+              <div class="kpi-value val-nominal">0.912</div>
+              <div class="kpi-footer">Harmonic mean of precision and recall.</div>
+            </div>
+            <div class="kpi-card">
+              <span class="kpi-label">ROC-AUC</span>
+              <div class="kpi-value val-nominal">0.948</div>
+              <div class="kpi-footer">Area under the receiver operating characteristic.</div>
+            </div>
+            <div class="kpi-card">
+              <span class="kpi-label">Detection Latency</span>
+              <div class="kpi-value" style="color: var(--status-info);">4.2 Wks</div>
+              <div class="kpi-footer">Mean observation interval to confirm signal.</div>
+            </div>
+            <div class="kpi-card">
+              <span class="kpi-label">RAG Grounding</span>
+              <div class="kpi-value val-nominal">98.4%</div>
+              <div class="kpi-footer">Direct peer-reviewed citation backing.</div>
+            </div>
+          </div>
+
+          <!-- Interactive Threshold Slider & Confusion Matrix -->
+          <div class="dashboard-grid-2col" style="margin-top: 22px;">
+            <div class="panel-card">
+              <div class="card-header" style="margin-bottom: 8px;">
+                <h4>
+                  Operating Threshold: <span id="threshold-val-display" style="color: var(--brand-teal); font-family: var(--font-mono);">0.50</span>
+                </h4>
+                <span class="stat-tag tag-healthy" id="operating-mode-tag">Standard Balance (F1: 0.912)</span>
+              </div>
+              <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 16px;">
+                Adjust decision boundary to dynamically recalculate Confusion Matrix and sensitivity trade-offs.
+              </p>
+              <input type="range" id="classifier-threshold-slider" min="0.30" max="0.90" step="0.05" value="0.50" style="width: 100%;">
+              <div style="display: flex; justify-content: space-between; font-size: 0.7rem; color: var(--text-muted); margin-top: 6px;">
+                <span>0.30 (High Sensitivity)</span>
+                <span>0.50 (Balanced Operational)</span>
+                <span>0.90 (High Specificity)</span>
+              </div>
+            </div>
+
+            <!-- 2x2 Confusion Matrix -->
+            <div class="panel-card">
+              <div class="card-header">
+                <h4>2x2 Confusion Matrix (Cohort n=480)</h4>
+              </div>
+              <p class="card-subtitle">Adjudication vs CognitiveLens persistence classification</p>
+
+              <div class="matrix-grid">
+                <div></div>
+                <div style="font-size: 0.72rem; font-weight: 700; color: var(--text-secondary); text-align: center;">Pred: Change</div>
+                <div style="font-size: 0.72rem; font-weight: 700; color: var(--text-secondary); text-align: center;">Pred: Stable</div>
+
+                <div style="font-size: 0.72rem; font-weight: 700; color: var(--text-secondary); display:flex; align-items:center;">Actual: Change</div>
+                <div class="matrix-cell cell-tp">
+                  <span style="font-size: 1.15rem; font-weight: 700;">224</span>
+                  <span style="font-size: 0.68rem;">True Pos (93.3%)</span>
+                </div>
+                <div class="matrix-cell cell-fn">
+                  <span style="font-size: 1.15rem; font-weight: 700;">16</span>
+                  <span style="font-size: 0.68rem;">False Neg (6.7%)</span>
+                </div>
+
+                <div style="font-size: 0.72rem; font-weight: 700; color: var(--text-secondary); display:flex; align-items:center;">Actual: Stable</div>
+                <div class="matrix-cell cell-fp">
+                  <span style="font-size: 1.15rem; font-weight: 700;">22</span>
+                  <span style="font-size: 0.68rem;">False Pos (9.2%)</span>
+                </div>
+                <div class="matrix-cell cell-tn">
+                  <span style="font-size: 1.15rem; font-weight: 700;">218</span>
+                  <span style="font-size: 0.68rem;">True Neg (90.8%)</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ==========================================================================
+             VIEW 11: SCIENTIFIC & ETHICAL SCOPE
+             ========================================================================== -->
+        <section class="module-view" id="view-about-ethics">
+          <div class="module-header">
+            <div class="module-title-group">
+              <h2>Scientific Positioning & Ethical Scope</h2>
+              <p>System positioning, non-diagnostic clinical boundaries, and research governance standards.</p>
+            </div>
+          </div>
+
+          <div class="panel-card" style="margin-bottom: 20px;">
+            <h3 style="font-size: 1.25rem; font-weight: 700; color: var(--text-primary); margin-bottom: 8px;">
+              Algorithmic Decision Support, Not Autonomous Diagnosis
+            </h3>
+            <p style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 20px;">
+              CognitiveLens AI is engineered to identify persistent longitudinal deviations in spoken language relative to an individual's own calibrated baseline. It does not replace neuropsychological batteries or neurological clinical evaluation.
+            </p>
+
+            <div class="dashboard-grid-2col">
+              <div style="padding: 14px; background: var(--bg-subtle); border-radius: var(--radius-sm); border-left: 3px solid var(--brand-teal);">
+                <strong style="font-size: 0.85rem; color: var(--text-primary);">1. Intra-Individual Calibration</strong>
+                <p style="font-size: 0.78rem; color: var(--text-secondary); margin-top: 4px; line-height: 1.45;">
+                  Standard cognitive screens compare subjects against demographic averages, missing high-reserve decline. CognitiveLens AI compares every observation to the patient's own baseline.
+                </p>
+              </div>
+
+              <div style="padding: 14px; background: var(--bg-subtle); border-radius: var(--radius-sm); border-left: 3px solid var(--status-warning);">
+                <strong style="font-size: 0.85rem; color: var(--text-primary);">2. Persistence Requirement</strong>
+                <p style="font-size: 0.78rem; color: var(--text-secondary); margin-top: 4px; line-height: 1.45;">
+                  An isolated bad day due to acute fatigue or stress does not indicate neurodegeneration. Multiple orthogonal markers must persist across consecutive longitudinal sessions.
+                </p>
+              </div>
+
+              <div style="padding: 14px; background: var(--bg-subtle); border-radius: var(--radius-sm); border-left: 3px solid var(--status-info);">
+                <strong style="font-size: 0.85rem; color: var(--text-primary);">3. Explainable Linguistic Features</strong>
+                <p style="font-size: 0.78rem; color: var(--text-secondary); margin-top: 4px; line-height: 1.45;">
+                  Signals correlate directly with measurable speech metrics (TTR, clause depth, pause duration) rather than opaque black-box embeddings.
+                </p>
+              </div>
+
+              <div style="padding: 14px; background: var(--bg-subtle); border-radius: var(--radius-sm); border-left: 3px solid var(--status-healthy);">
+                <strong style="font-size: 0.85rem; color: var(--text-primary);">4. Evidence Grounding (No Hallucinations)</strong>
+                <p style="font-size: 0.78rem; color: var(--text-secondary); margin-top: 4px; line-height: 1.45;">
+                  Caregiver advice is bound strictly to peer-reviewed literature via the Evidence Battle framework, pairing clinical evidence with contextual qualifiers.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </main>
+
+      <!-- Clean, Professional Verified Enterprise Footer -->
+      <footer class="site-verified-footer">
+        <div class="footer-top-row">
+          
+          <!-- Column 1: Brand & Certification Status -->
+          <div class="footer-col-brand">
+            <div class="footer-brand-header">
+              <div class="footer-brand-icon">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><circle cx="12" cy="12" r="3"></circle><path d="M9.5 2A4.5 4.5 0 0 0 5 6.5c0 1.3.6 2.5 1.5 3.3"></path></svg>
+              </div>
+              <strong class="footer-brand-title">CognitiveLens AI</strong>
+              <span class="verified-pill">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                Verified Clinical Platform
+              </span>
+            </div>
+            <p class="footer-brand-desc">
+              Research-grade longitudinal speech-biomarker analytics engine. Calibrated intra-individual baselines for preclinical Alzheimer's &amp; related dementias (ADRD).
+            </p>
+            <div class="footer-badges-strip">
+              <span class="cert-badge" title="Certified ISO 22955 Acoustic Standards">
+                <span class="cert-check">✓</span> ISO 22955 Validated
+              </span>
+              <span class="cert-badge" title="Compliant with SaMD Class II Decision Support">
+                <span class="cert-check">✓</span> SaMD CDS Tier II
+              </span>
+              <span class="cert-badge" title="IRB Protocol Approved for Longitudinal Data Collection">
+                <span class="cert-check">✓</span> IRB Protocol #CL092
+              </span>
+              <span class="cert-badge" title="21 CFR Part 11 Electronic Records Compliant">
+                <span class="cert-check">✓</span> 21 CFR Part 11
+              </span>
+            </div>
+          </div>
+
+          <!-- Column 2: Clinical Workflows -->
+          <div class="footer-col-links">
+            <div class="footer-heading">Clinical Modules</div>
+            <ul class="footer-links-list">
+              <li><a href="#" onclick="window.switchView('dashboard'); return false;">Clinical Trajectory Dashboard</a></li>
+              <li><a href="#" onclick="window.switchView('voice-screening'); return false;">Voice Screening Studio (BDAE)</a></li>
+              <li><a href="#" onclick="window.switchView('longitudinal-3d'); return false;">3D Latent State Space</a></li>
+              <li><a href="#" onclick="window.switchView('nlp-lab'); return false;">NLP &amp; SHAP Explainability</a></li>
+              <li><a href="#" onclick="window.switchView('cases'); return false;">Cohort Subject Repository</a></li>
+            </ul>
+          </div>
+
+          <!-- Column 3: Evidence & Governance -->
+          <div class="footer-col-links">
+            <div class="footer-heading">Governance &amp; Evidence</div>
+            <ul class="footer-links-list">
+              <li><a href="#" onclick="window.switchView('evidence-rag'); return false;">Dual-Pole Evidence Battle RAG</a></li>
+              <li><a href="#" onclick="window.switchView('synthetic-cohort'); return false;">Synthetic Cohort Simulator</a></li>
+              <li><a href="#" onclick="window.switchView('research-lab'); return false;">Model Concordance Benchmarks</a></li>
+              <li><a href="#" onclick="window.switchView('about-ethics'); return false;">Ethical Scope &amp; AI Transparency</a></li>
+              <li><a href="#" onclick="document.getElementById('modal-clinical-report').classList.add('active'); return false;">Export Assessment Dossier</a></li>
+            </ul>
+          </div>
+
+          <!-- Column 4: Investigator Sign-Off / Status -->
+          <div class="footer-col-investigator">
+            <div class="footer-heading">Current Session Credential</div>
+            <div class="footer-investigator-card">
+              <div class="investigator-card-avatar">
+                <img src="assets/images/avatar.jpg" alt="Investigator Avatar">
+                <span class="investigator-status-dot"></span>
+              </div>
+              <div class="investigator-card-meta">
+                <div class="investigator-name">Dr. Anya Sharma, MD, PhD</div>
+                <div class="investigator-role">Principal Investigator • Full Clearance</div>
+                <div class="investigator-inst">Cognitive Neurosciences Institute</div>
+              </div>
+            </div>
+            <div class="footer-irb-callout">
+              <div class="irb-dot"></div>
+              <span>Active IRB Observation Protocol: <strong>#IRB-2025-CL092</strong></span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Footer Bottom Bar -->
+        <div class="footer-bottom-row">
+          <div class="footer-copyright">
+            &copy; 2026 CognitiveLens AI Systems &bull; Version 2.4.0 (Build 2026.09-CL) &bull; Designed for Clinical &amp; Neuroscience Investigation
+          </div>
+          <div class="footer-disclaimer">
+            <strong>Clinical Notice:</strong> Algorithmic decision support. Not intended as an autonomous standalone diagnostic device.
+          </div>
+        </div>
+      </footer>
+
+    </div> <!-- End .app-main-layout -->
+  </div> <!-- End .app-layout -->
+
+  <!-- ==========================================================================
+       MODALS & SYSTEM OVERLAYS
+       ========================================================================== -->
+
+  <!-- 1. SPOTLIGHT COMMAND PALETTE (CTRL + K) -->
+  <div class="spotlight-modal-overlay" id="spotlight-modal">
+    <div class="spotlight-modal-card">
+      <div class="spotlight-input-wrap">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" x2="16.65" y1="21" y2="16.65"></line></svg>
+        <input type="text" class="spotlight-input" id="spotlight-search-input" placeholder="Search subjects, modules, or actions...">
+        <button class="search-key-badge" id="spotlight-close-btn" style="cursor: pointer;">ESC</button>
+      </div>
+      <div class="spotlight-results" id="spotlight-results-list">
+        <!-- Populated via JS -->
+      </div>
+      <div class="spotlight-footer">
+        <span>Navigate with <strong>↑</strong> <strong>↓</strong> • Select with <strong>Enter</strong></span>
+        <span>Press <strong>ESC</strong> to dismiss</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. CLINICAL ASSESSMENT REPORT MODAL -->
+  <div class="modal-overlay" id="modal-clinical-report">
+    <div class="modal-card" style="max-width: 780px;">
+      <div class="modal-header">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <div style="width: 28px; height: 28px; border-radius: var(--radius-xs); background: var(--brand-teal-subtle); color: var(--brand-teal); display: flex; align-items: center; justify-content: center;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+          </div>
+          <div>
+            <h3>Clinical Assessment Summary Report</h3>
+            <span style="font-size: 0.72rem; color: var(--text-muted);">Protocol DEMELENS-CLIN-01 • Non-Diagnostic Research Record</span>
+          </div>
+        </div>
+        <button class="modal-close-btn" id="modal-report-close">✕</button>
+      </div>
+      <div class="modal-body" id="printable-report-area">
+        <div class="report-sheet">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 2px solid var(--border-color); padding-bottom: 14px; margin-bottom: 16px;">
+            <div>
+              <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--text-primary);">CognitiveLens AI — Longitudinal Evaluation</h2>
+              <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 2px;">
+                Investigator: <strong>Dr. Anya Sharma, MD, PhD</strong> • Institute for Cognitive Neurosciences
+              </div>
+            </div>
+            <div style="text-align: right;">
+              <span class="stat-tag tag-alert" id="report-case-tag">Elevated Risk Signal</span>
+              <div style="font-family: var(--font-mono); font-size: 1.15rem; font-weight: 700; margin-top: 4px;" id="report-patient-id">CASE #1042</div>
+              <div style="font-size: 0.75rem; color: var(--text-muted);" id="report-patient-demog">Female, 74 y/o • ADRD Cohort</div>
+            </div>
+          </div>
+
+          <div style="margin-bottom: 16px;">
+            <strong style="font-size: 0.85rem; color: var(--text-primary); text-transform: uppercase;">1. Trajectory Summary & Consensus</strong>
+            <p style="font-size: 0.82rem; color: var(--text-secondary); line-height: 1.5; margin-top: 4px;">
+              Observation trajectory shows calibrated intra-individual stability through initial baseline sessions. Confirmed <strong>First Persistent Signal at Week 5 (+2.48σ)</strong>. All three model architectures (Logistic Regression, Random Forest, XGBoost) maintain <strong>100% Concordance</strong> in classifying elevated risk profile.
+            </p>
+          </div>
+
+          <div style="margin-bottom: 16px;">
+            <strong style="font-size: 0.85rem; color: var(--text-primary); text-transform: uppercase;">2. Critical SHAP Attributions</strong>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 0.8rem; margin-top: 6px;">
+              <div style="padding: 8px 10px; background: var(--bg-subtle); border-radius: var(--radius-xs);">
+                <strong>• Type-Token Ratio:</strong> 0.51 (-2.1σ vs Baseline: 0.72)
+              </div>
+              <div style="padding: 8px 10px; background: var(--bg-subtle); border-radius: var(--radius-xs);">
+                <strong>• Repetition Index:</strong> 18.4% (+2.8σ vs Baseline: 6.2%)
+              </div>
+              <div style="padding: 8px 10px; background: var(--bg-subtle); border-radius: var(--radius-xs);">
+                <strong>• Pause Latency:</strong> 2.4s (Baseline: &lt;1.0s)
+              </div>
+              <div style="padding: 8px 10px; background: var(--bg-subtle); border-radius: var(--radius-xs);">
+                <strong>• Clause Depth:</strong> 6.2 words/cl (-34% vs baseline)
+              </div>
+            </div>
+          </div>
+
+          <div style="padding: 12px 14px; background: var(--status-warning-bg); border: 1px solid var(--status-warning-border); border-radius: var(--radius-sm); font-size: 0.78rem; color: var(--status-warning-text); line-height: 1.5;">
+            <strong>Research Disclaimer:</strong> Algorithmic decision support tool. Does not formulate prescriptive medical diagnoses. Requires clinical correlation with standard neuropsychological testing.
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" id="btn-report-download-json">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+          <span>Download JSON Record</span>
+        </button>
+        <button class="btn btn-primary" id="btn-report-print">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect width="12" height="8" x="6" y="14"></rect></svg>
+          <span>Print / Save PDF</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. NEW ASSESSMENT SESSION MODAL -->
+  <div class="modal-overlay" id="modal-new-session">
+    <div class="modal-card" style="max-width: 520px;">
+      <div class="modal-header">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <div style="width: 28px; height: 28px; border-radius: var(--radius-xs); background: var(--brand-teal-subtle); color: var(--brand-teal); display: flex; align-items: center; justify-content: center;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" x2="19" y1="12" y2="12"></line></svg>
+          </div>
+          <div>
+            <h3>Start New Screening Session</h3>
+            <span style="font-size: 0.72rem; color: var(--text-muted);">Configure protocol and subject intake</span>
+          </div>
+        </div>
+        <button class="modal-close-btn" id="modal-new-session-close">✕</button>
+      </div>
+      <div class="modal-body">
+        <div style="display: flex; flex-direction: column; gap: 14px;">
+          <div>
+            <label style="display: block; font-size: 0.78rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 4px;">Subject</label>
+            <select class="repo-filter-select" id="wizard-patient-select" style="width: 100%;">
+              <option value="1042">Case #1042 — Margaret H. (ADRD Cohort)</option>
+              <option value="2019">Case #2019 — Robert C. (Healthy Control)</option>
+              <option value="3084">Case #3084 — Eleanor D. (Vascular Pattern)</option>
+              <option value="1088">Case #1088 — Arthur P. (FTD Subtype)</option>
+              <option value="4012">Case #4012 — Grace M. (SCD Reference)</option>
+            </select>
+          </div>
+
+          <div>
+            <label style="display: block; font-size: 0.78rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 6px;">Assessment Protocol</label>
+            <div style="display: flex; flex-direction: column; gap: 6px;">
+              <label style="display: flex; align-items: center; gap: 10px; padding: 8px 12px; border: 1px solid var(--border-color); border-radius: var(--radius-sm); cursor: pointer;">
+                <input type="radio" name="wizard-task" value="cookie-theft" checked>
+                <div style="font-size: 0.82rem;"><strong>Boston Cookie Theft Picture Description</strong> (60s)</div>
+              </label>
+              <label style="display: flex; align-items: center; gap: 10px; padding: 8px 12px; border: 1px solid var(--border-color); border-radius: var(--radius-sm); cursor: pointer;">
+                <input type="radio" name="wizard-task" value="animal-fluency">
+                <div style="font-size: 0.82rem;"><strong>Semantic Category Fluency</strong> (Animals - 60s)</div>
+              </label>
+              <label style="display: flex; align-items: center; gap: 10px; padding: 8px 12px; border: 1px solid var(--border-color); border-radius: var(--radius-sm); cursor: pointer;">
+                <input type="radio" name="wizard-task" value="story-recall">
+                <div style="font-size: 0.82rem;"><strong>Delayed Narrative Story Recall</strong> (WMS-IV)</div>
+              </label>
+            </div>
+          </div>
+
+          <div>
+            <label style="display: block; font-size: 0.78rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 4px;">Session Date</label>
+            <input type="text" class="repo-search-input" id="wizard-session-date" value="January 10, 2026" style="width: 100%;">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" id="btn-new-session-cancel">Cancel</button>
+        <button class="btn btn-primary" id="btn-new-session-start">Start Assessment →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. NOTIFICATION CENTER DRAWER -->
+  <div class="notif-drawer-overlay" id="notif-drawer-overlay"></div>
+  <aside class="notif-drawer" id="notif-drawer">
+    <div style="padding: 14px 18px; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; justify-content: space-between;">
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <h4 style="font-size: 0.95rem; font-weight: 700;">Clinical Alerts</h4>
+        <span class="stat-tag tag-warning" id="notif-count-badge">3 New</span>
+      </div>
+      <button class="modal-close-btn" id="notif-drawer-close">✕</button>
+    </div>
+    <div class="notif-list" id="notif-list-container">
+      <div class="notif-card unread" onclick="window.switchView('longitudinal-3d'); document.getElementById('notif-drawer').classList.remove('active'); document.getElementById('notif-drawer-overlay').classList.remove('active');">
+        <div style="display: flex; justify-content: space-between; font-size: 0.7rem; color: var(--text-muted);">
+          <span class="stat-tag tag-alert" style="font-size: 0.65rem;">First Signal Flag</span>
+          <span>10m ago</span>
+        </div>
+        <strong style="font-size: 0.82rem; color: var(--text-primary);">Week 5 Persistent Deviation Detected</strong>
+        <p style="font-size: 0.75rem; color: var(--text-secondary); line-height: 1.35;">
+          Case #1042 exceeded Mahalanobis distance threshold of 3.42σ from personal baseline.
+        </p>
+      </div>
+
+      <div class="notif-card unread" onclick="window.switchView('dashboard'); document.getElementById('notif-drawer').classList.remove('active'); document.getElementById('notif-drawer-overlay').classList.remove('active');">
+        <div style="display: flex; justify-content: space-between; font-size: 0.7rem; color: var(--text-muted);">
+          <span class="stat-tag tag-healthy" style="font-size: 0.65rem;">Ensemble Consensus</span>
+          <span>1h ago</span>
+        </div>
+        <strong style="font-size: 0.82rem; color: var(--text-primary);">3/3 Multi-Model Agreement Achieved</strong>
+        <p style="font-size: 0.75rem; color: var(--text-secondary); line-height: 1.35;">
+          Logistic Regression, Random Forest, and XGBoost classifiers aligned.
+        </p>
+      </div>
+
+      <div class="notif-card unread" onclick="window.switchView('voice-screening'); document.getElementById('notif-drawer').classList.remove('active'); document.getElementById('notif-drawer-overlay').classList.remove('active');">
+        <div style="display: flex; justify-content: space-between; font-size: 0.7rem; color: var(--text-muted);">
+          <span class="stat-tag tag-healthy" style="font-size: 0.65rem;">Acoustic Quality</span>
+          <span>3h ago</span>
+        </div>
+        <strong style="font-size: 0.82rem; color: var(--text-primary);">Audio Intake Verified: SNR 28.4 dB</strong>
+        <p style="font-size: 0.75rem; color: var(--text-secondary); line-height: 1.35;">
+          Whisper confidence at 0.98; acoustic noise within clinical tolerance.
+        </p>
+      </div>
+    </div>
+    <div style="padding: 10px 16px; border-top: 1px solid var(--border-color); background: var(--bg-subtle); display: flex; justify-content: space-between;">
+      <button class="btn btn-secondary btn-sm" id="btn-notif-mark-read">Mark as Read</button>
+      <button class="btn btn-secondary btn-sm" id="btn-notif-clear">Clear All</button>
+    </div>
+  </aside>
+
+  <!-- 5. SETTINGS & CALIBRATION MODAL -->
+  <div class="modal-overlay" id="modal-settings">
+    <div class="modal-card" style="max-width: 520px;">
+      <div class="modal-header">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <div style="width: 28px; height: 28px; border-radius: var(--radius-xs); background: var(--brand-teal-subtle); color: var(--brand-teal); display: flex; align-items: center; justify-content: center;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+          </div>
+          <div>
+            <h3>System Settings & Calibration</h3>
+            <span style="font-size: 0.72rem; color: var(--text-muted);">Adjust detector sensitivity and persistence criteria</span>
+          </div>
+        </div>
+        <button class="modal-close-btn" id="modal-settings-close">✕</button>
+      </div>
+      <div class="modal-body">
+        <div style="display: flex; flex-direction: column; gap: 16px;">
+          <div>
+            <div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 600; margin-bottom: 4px;">
+              <span>First Signal Persistence Threshold:</span>
+              <span id="setting-persist-val" style="color: var(--brand-teal);">2 Consecutive Observations</span>
+            </div>
+            <input type="range" min="1" max="4" value="2" id="setting-persist-slider" style="width: 100%;">
+            <span style="font-size: 0.72rem; color: var(--text-muted);">Requires consecutive out-of-distribution sessions before raising alert.</span>
+          </div>
+
+          <div>
+            <div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 600; margin-bottom: 4px;">
+              <span>Model Classification Cutoff:</span>
+              <span id="setting-cutoff-val" style="color: var(--brand-teal);">0.75</span>
+            </div>
+            <input type="range" min="0.50" max="0.95" step="0.05" value="0.75" id="setting-cutoff-slider" style="width: 100%;">
+            <span style="font-size: 0.72rem; color: var(--text-muted);">Probability cutoff required to flag observation as elevated.</span>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" id="btn-settings-reset">Reset</button>
+        <button class="btn btn-primary" id="btn-settings-save">Save Settings</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. CLINICIAN PROFILE MODAL -->
+  <div class="modal-overlay" id="modal-profile">
+    <div class="modal-card" style="max-width: 480px;">
+      <div class="modal-header">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <img src="assets/images/avatar.jpg" alt="Anya Sharma" style="width: 38px; height: 38px; border-radius: 50%; object-fit: cover;">
+          <div>
+            <h3>Dr. Anya Sharma, MD, PhD</h3>
+            <span style="font-size: 0.72rem; color: var(--text-muted);">Principal Investigator</span>
+          </div>
+        </div>
+        <button class="modal-close-btn" id="modal-profile-close">✕</button>
+      </div>
+      <div class="modal-body">
+        <div style="display: flex; flex-direction: column; gap: 10px; font-size: 0.82rem;">
+          <div style="padding: 10px; background: var(--bg-subtle); border-radius: var(--radius-sm);">
+            <div><strong>Affiliation:</strong> Memory & Cognitive Aging Research Institute</div>
+            <div><strong>Active IRB Protocol:</strong> #IRB-2025-CL092 (Longitudinal Biomarkers)</div>
+            <div><strong>Clearance Level:</strong> Full Investigator Clearance</div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" id="btn-profile-switch-account">Switch / Register Account</button>
+        <button class="btn btn-primary" onclick="document.getElementById('modal-profile').classList.remove('active');">Done</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7. INVESTIGATOR / CLINICIAN REGISTRATION & SIGN-IN MODAL -->
+  <div class="modal-overlay" id="modal-auth">
+    <div class="modal-card" style="max-width: 500px;">
+      <div class="modal-header">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <div style="width: 32px; height: 32px; border-radius: var(--radius-sm); background: var(--brand-teal-subtle); color: var(--brand-teal); display: flex; align-items: center; justify-content: center;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+          </div>
+          <div>
+            <h3 id="auth-modal-title">Investigator Portal</h3>
+            <span style="font-size: 0.72rem; color: var(--text-muted);">Access control & clinical credential management</span>
+          </div>
+        </div>
+        <button class="modal-close-btn" id="modal-auth-close">✕</button>
+      </div>
+
+      <!-- Auth Tabs: Sign In / Register -->
+      <div class="modal-tabs">
+        <button class="modal-tab-btn active" id="tab-auth-login" onclick="window.switchAuthTab('login')">Sign In</button>
+        <button class="modal-tab-btn" id="tab-auth-register" onclick="window.switchAuthTab('register')">Register New Investigator</button>
+      </div>
+
+      <div class="modal-body">
+        <!-- Sign In Form -->
+        <form id="form-auth-login" onsubmit="event.preventDefault(); window.handleInvestigatorLogin();">
+          <div class="form-group">
+            <label class="form-label" for="login-email">Institutional Email</label>
+            <input type="email" class="form-control" id="login-email" value="anya.sharma@neuro.ac.uk" required placeholder="dr.name@institution.edu">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="login-password">Credential Key / Access Passcode</label>
+            <input type="password" class="form-control" id="login-password" value="demo-password" required placeholder="••••••••••••">
+            <span class="form-hint">Compliant with 21 CFR Part 11 biometric signature logging</span>
+          </div>
+          <div style="margin-top: 20px;">
+            <button type="submit" class="btn btn-primary" style="width: 100%;">
+              Authenticate & Launch Session
+            </button>
+          </div>
+        </form>
+
+        <!-- Register Form (hidden by default) -->
+        <form id="form-auth-register" style="display: none;" onsubmit="event.preventDefault(); window.handleInvestigatorRegister();">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="reg-first-name">First Name</label>
+              <input type="text" class="form-control" id="reg-first-name" required placeholder="e.g. David">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="reg-last-name">Last Name & Credentials</label>
+              <input type="text" class="form-control" id="reg-last-name" required placeholder="e.g. Chen, MD">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="reg-role">Clinical Role / Clearance Level</label>
+            <select class="form-control" id="reg-role">
+              <option value="Principal Investigator">Principal Investigator (Full Clearance)</option>
+              <option value="Clinical Neuropsychologist">Clinical Neuropsychologist</option>
+              <option value="Clinical Research Coordinator">Clinical Research Coordinator</option>
+              <option value="Speech-Language Pathologist">Speech-Language Pathologist</option>
+              <option value="Data Auditor / DSMB">Data Safety Monitoring Board (Read-only)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="reg-inst">Affiliated Institute / Medical Center</label>
+            <input type="text" class="form-control" id="reg-inst" required placeholder="e.g. Center for Neurodegenerative Health">
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="reg-email">Institutional Email</label>
+              <input type="email" class="form-control" id="reg-email" required placeholder="name@medical.org">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="reg-irb">Approved IRB Protocol #</label>
+              <input type="text" class="form-control" id="reg-irb" value="IRB-2026-COGN" required placeholder="e.g. IRB-2026-049">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="reg-passcode">Create Access Passcode</label>
+            <input type="password" class="form-control" id="reg-passcode" required placeholder="At least 8 characters">
+          </div>
+
+          <div style="margin-top: 18px;">
+            <button type="submit" class="btn btn-primary" style="width: 100%;">
+              Register Investigator Profile
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- 8. SUBJECT / PATIENT INTAKE REGISTRATION MODAL -->
+  <div class="modal-overlay" id="modal-enroll-subject">
+    <div class="modal-card" style="max-width: 580px;">
+      <div class="modal-header">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <div style="width: 32px; height: 32px; border-radius: var(--radius-sm); background: var(--brand-teal-subtle); color: var(--brand-teal); display: flex; align-items: center; justify-content: center;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><line x1="19" y1="8" x2="19" y2="14"></line><line x1="22" y1="11" x2="16" y2="11"></line></svg>
+          </div>
+          <div>
+            <h3>Enroll & Register Study Subject</h3>
+            <span style="font-size: 0.72rem; color: var(--text-muted);">Longitudinal cohort intake & baseline assignment</span>
+          </div>
+        </div>
+        <button class="modal-close-btn" id="modal-enroll-subject-close">✕</button>
+      </div>
+
+      <div class="modal-body">
+        <form id="form-enroll-subject" onsubmit="event.preventDefault(); window.handleEnrollSubject();">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="enroll-subject-name">Subject Alias / Pseudonym</label>
+              <input type="text" class="form-control" id="enroll-subject-name" required placeholder="e.g. Thomas K.">
+              <span class="form-hint">HIPAA / GDPR de-identified study naming</span>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="enroll-subject-id">Assigned Subject ID</label>
+              <input type="text" class="form-control" id="enroll-subject-id" required value="5021" placeholder="e.g. 5021">
+              <span class="form-hint">Numeric Case identifier</span>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="enroll-subject-age">Age (Years)</label>
+              <input type="number" class="form-control" id="enroll-subject-age" min="45" max="98" value="71" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="enroll-subject-gender">Gender</label>
+              <select class="form-control" id="enroll-subject-gender">
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Non-binary / Other">Non-binary / Other</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="enroll-cohort-select">Cohort Arm</label>
+            <select class="form-control" id="enroll-cohort-select">
+              <option value="ADRD Longitudinal Study Cohort">ADRD Longitudinal Study Cohort (At-Risk)</option>
+              <option value="Healthy Age-Matched Control Cohort">Healthy Age-Matched Control Cohort</option>
+              <option value="Vascular Cognitive Impairment Sub-Cohort">Vascular Cognitive Impairment Sub-Cohort</option>
+              <option value="Frontotemporal Language Variant Cohort">Frontotemporal Language Variant Cohort</option>
+              <option value="Subjective Cognitive Decline (SCD) Reference">Subjective Cognitive Decline (SCD) Reference</option>
+            </select>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="enroll-baseline-status">Intake Clinical Status</label>
+              <select class="form-control" id="enroll-baseline-status">
+                <option value="Nominal Baseline">Nominal Baseline (Stable)</option>
+                <option value="Moderate Variance">Moderate Variance (Monitoring)</option>
+                <option value="Elevated Risk Signal">Elevated Risk Signal</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="enroll-baseline-score">Initial Signal Prior (0.00 – 1.00)</label>
+              <input type="number" class="form-control" id="enroll-baseline-score" min="0.05" max="0.95" step="0.01" value="0.20">
+            </div>
+          </div>
+
+          <div style="margin-top: 18px; display: flex; justify-content: flex-end; gap: 10px;">
+            <button type="button" class="btn btn-secondary" onclick="document.getElementById('modal-enroll-subject').classList.remove('active');">
+              Cancel
+            </button>
+            <button type="submit" class="btn btn-primary">
+              Enroll Subject into Cohort
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7. FLOATING TOAST NOTIFICATION CONTAINER -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- Scripts -->
+  <script src="assets/js/3d-state-space.js"></script>
+  <script src="assets/js/case-replay.js"></script>
+  <script src="assets/js/evidence-rag.js"></script>
+  <script src="assets/js/synthetic-lab.js"></script>
+  <script src="assets/js/app.js"></script>
+
+</body>
+</html>
